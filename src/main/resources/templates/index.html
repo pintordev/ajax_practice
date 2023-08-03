@@ -1,0 +1,55 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<style>
+    .box {
+        width: 500px;
+        height: 500px;
+        border: 2px solid red;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 10rem;
+    }
+</style>
+
+메인 1
+<hr>
+공간 1
+<button onclick="Count1__updateDisplay();">갱신</button>
+<div class="box count-1-display">
+    <th:block th:text="${count1}"></th:block>
+</div>
+공간 2
+<button onclick="Count2__updateDisplay();">갱신</button>
+<div class="box count-2-display">
+    <th:block th:text="${count2}"></th:block>
+</div>
+
+<script>
+function Count1__updateDisplay() {
+    $.ajax({
+        type: "GET", //요청 메소드 방식
+        url:"/count1",
+        dataType:"json",
+        success : function(result){
+            $(".count-1-display").text(result.data);
+        },
+        error : function(err){
+            console.log(err);
+        }
+    });
+}
+
+function Count2__updateDisplay() {
+    $.ajax({
+        type: "GET", //요청 메소드 방식
+        url:"/count2",
+        dataType:"json",
+        success : function(result){
+            $(".count-2-display").text(result.data);
+        },
+        error : function(err){
+            console.log(err);
+        }
+    });
+}
+</script>
