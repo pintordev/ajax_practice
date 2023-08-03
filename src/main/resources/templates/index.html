@@ -15,11 +15,13 @@
 <hr>
 공간 1
 <button onclick="Count1__updateDisplay();">갱신</button>
+<button onclick="Count1__increase();">증가</button>
 <div class="box count-1-display">
     <th:block th:text="${count1}"></th:block>
 </div>
 공간 2
 <button onclick="Count2__updateDisplay();">갱신</button>
+<button onclick="Count2__increase();">증가</button>
 <div class="box count-2-display">
     <th:block th:text="${count2}"></th:block>
 </div>
@@ -43,6 +45,40 @@ function Count2__updateDisplay() {
     $.ajax({
         type: "GET", //요청 메소드 방식
         url:"/count2",
+        dataType:"json",
+        success : function(result){
+            $(".count-2-display").text(result.data);
+        },
+        error : function(err){
+            console.log(err);
+        }
+    });
+}
+
+function Count1__increase() {
+    $.ajax({
+        type: "POST", //요청 메소드 방식
+        url:"/increaseCount1",
+        data: {
+            "count1": $(".count-1-display").text()
+        },
+        dataType:"json",
+        success : function(result){
+            $(".count-1-display").text(result.data);
+        },
+        error : function(err){
+            console.log(err);
+        }
+    });
+}
+
+function Count2__increase() {
+    $.ajax({
+        type: "POST", //요청 메소드 방식
+        url:"/increaseCount2",
+        data: {
+            "count2": $(".count-1-display").text()
+        },
         dataType:"json",
         success : function(result){
             $(".count-2-display").text(result.data);
